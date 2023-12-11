@@ -1,15 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
-import {Route, NavLink, HashRouter} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore/lite';
+import { getFirestore } from 'firebase/firestore';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 import NavigationBar from './components/NavigationBar';
+import Shows from './pages/Shows';
 
-import {useAuthState} from 'react-firebase-hooks/auth';
-import {useCollectionData} from 'react-firebase-hooks/firestore';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useState } from 'react';
 
 
@@ -25,15 +26,20 @@ const firebaseConfig = {
 
 
 function App() {
-  initializeApp(firebaseConfig)
-  const auth = getAuth();
-  const db = getFirestore();
+  const app = initializeApp(firebaseConfig)
+  const auth = getAuth(app);
+  const firestore = getFirestore(app);
   const [user] = useAuthState(auth);
 
   return (
     <div className="App">
       <header className="App-header">
-        <NavigationBar user={user} />
+        <Router>
+          <NavigationBar user={user} />
+          <Routes>
+            <Route path="/shows" element={<Shows db={firestore} />} />
+          </Routes>
+        </Router>
       </header>
     </div>
   );
