@@ -13,8 +13,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useState } from 'react';
 
-
-
 const firebaseConfig = {
   apiKey: "AIzaSyBUyDhtWkPCPoNahE6U8apjziVWRSkkGRU",
   authDomain: "mymovielist-2ebef.firebaseapp.com",
@@ -30,7 +28,6 @@ function App() {
   const auth = getAuth(app);
   const firestore = getFirestore(app);
   const [user] = useAuthState(auth);
-
   return (
     <div className="App">
       <header className="App-header">
