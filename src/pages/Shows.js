@@ -2,10 +2,11 @@ import React from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { collection } from 'firebase/firestore';
 
+import ShowCard from '../components/ShowCard';
+
 function Shows({db}) {
   const showsRef = collection(db, 'shows');
   const [shows, loading, error] = useCollectionData(showsRef, { idField: 'id' });
-
   // Loading state: Display a loading message or spinner
   if (loading) {
     return <p>Loading...</p>;
@@ -18,14 +19,12 @@ function Shows({db}) {
 
   // Data loaded successfully: Render the shows
   return (
-    <div>
-      <h1 >Shows</h1>
-      {shows.map(show => (
-        <div key={show.id}>
-          <h2>{show.title}</h2>
-          <p>{show.genre}</p>
-        </div>
+    <div className='d-flex align-items-start' style={{flexDirection: 'column'}}>
+      <div>
+      {shows.map(s => (
+        <ShowCard key={s.Title} show={s} />
       ))}
+      </div>
     </div>
   );
 }

@@ -1,17 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+
 
 import NavigationBar from './components/NavigationBar';
 import Shows from './pages/Shows';
-
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { useState } from 'react';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBUyDhtWkPCPoNahE6U8apjziVWRSkkGRU",
