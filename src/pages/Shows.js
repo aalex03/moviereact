@@ -1,10 +1,12 @@
 import React from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { collection } from 'firebase/firestore';
+import { collection, getFirestore } from 'firebase/firestore';
 
 import ShowCard from '../components/ShowCard';
+import app from '../firebaseApp';
 
-function Shows({db}) {
+function Shows() {
+  const db = getFirestore(app);
   const showsRef = collection(db, 'shows');
   const [shows, loading, error] = useCollectionData(showsRef, { idField: 'id' });
   // Loading state: Display a loading message or spinner

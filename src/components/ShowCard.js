@@ -1,14 +1,27 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
+import {getStorage, ref, getDownloadURL} from 'firebase/storage';
+import app from '../firebaseApp';
 
 function ShowCard({ show }) {
-    const releaseDate = new Date(show.ReleaseDate);
+  const storage = getStorage(app);
+  const [imageUrl, setImageUrl] = useState(null);
+
+  useEffect(() => {
+    const imageRef = ref(storage, show.PosterURL);
+
+    getDownloadURL(imageRef)
+      .then(url =>{console.log(url); setImageUrl(url)})
+      .catch(error => console.error('Error getting download URL:', error));
+  }, [show.PosterURL, storage]);
+
   return (
     <Card style={{ width: '18rem' }}>
       
       <Card.Body>
         <Card.Title>{show.Title}</Card.Title>
-        <Card.Img variant="top" src={show.Poster} />
+        <Card.Img variant="top" style={{maxWidth: "100%"}} src={imageUrl} />
         
         <Card.Text style={{ fontSize: 'small', overflowY: 'auto', maxHeight: '100px' }}>
           {show.Synopsis}
