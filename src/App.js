@@ -1,9 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { initializeApp } from 'firebase/app';
+import app from './firebaseApp';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -13,20 +12,12 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import NavigationBar from './components/NavigationBar';
 import Shows from './pages/Shows';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBUyDhtWkPCPoNahE6U8apjziVWRSkkGRU",
-  authDomain: "mymovielist-2ebef.firebaseapp.com",
-  projectId: "mymovielist-2ebef",
-  storageBucket: "mymovielist-2ebef.appspot.com",
-  messagingSenderId: "463710500610",
-  appId: "1:463710500610:web:db3c2421f822c0dfd4f41b"
-};
+
 
 
 function App() {
-  const app = initializeApp(firebaseConfig)
+  
   const auth = getAuth(app);
-  const firestore = getFirestore(app);
   const [user] = useAuthState(auth);
   return (
     <div className="App">
@@ -34,7 +25,7 @@ function App() {
         <Router>
           <NavigationBar user={user} />
           <Routes>
-            <Route path="/shows" element={<Shows db={firestore} />} />
+            <Route path="/shows" element={<Shows/>} />
           </Routes>
         </Router>
       </header>
