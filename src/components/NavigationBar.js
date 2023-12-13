@@ -6,7 +6,7 @@ import Logout from './Logout';
 
 function NavigationBar({ user }) {
   return (
-    <Navbar bg="light" expand="lg" fixed='top' style={{ padding: '10px' }}>
+    <Navbar bg="dark" expand="lg" fixed='top' style={{ padding: '10px' }}>
       <Navbar.Brand href="#home">MovieReact</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">

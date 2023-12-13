@@ -1,6 +1,7 @@
 import React from 'react';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { collection, getFirestore } from 'firebase/firestore';
+import { Stack } from 'react-bootstrap';
 
 import ShowCard from '../components/ShowCard';
 import app from '../firebaseApp';
@@ -22,11 +23,11 @@ function Shows() {
   // Data loaded successfully: Render the shows
   return (
     <div className='d-flex align-items-start' style={{flexDirection: 'column'}}>
-      <div>
+      <Stack direction='horizontal' gap={3}>
       {shows.map(s => (
         <ShowCard key={s.Title} show={s} />
       ))}
-      </div>
+      </Stack>
     </div>
   );
 }
