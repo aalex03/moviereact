@@ -1,12 +1,9 @@
 import './App.css';
-import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import app from './firebaseApp';
-import { getFirestore } from 'firebase/firestore';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from './firebaseApp';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
+
 
 
 import NavigationBar from './components/NavigationBar';
@@ -18,7 +15,6 @@ import ShowPage from './pages/ShowPage';
 
 function App() {
   
-  const auth = getAuth(app);
   const [user] = useAuthState(auth);
   return (
     <div className="App">

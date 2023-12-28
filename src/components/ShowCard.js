@@ -1,14 +1,13 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
-import { Link, Route } from 'react-router-dom';
-import { getStorage, ref, getDownloadURL } from 'firebase/storage';
-import app from '../firebaseApp';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { ref, getDownloadURL } from 'firebase/storage';
+import { storage } from '../firebaseApp';
 
-import ShowPage from '../pages/ShowPage';
 
 function ShowCard({ show }) {
-  const storage = getStorage(app);
+  
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(() => {
@@ -17,7 +16,7 @@ function ShowCard({ show }) {
     getDownloadURL(imageRef)
       .then(url => { console.log(url); setImageUrl(url) })
       .catch(error => console.error('Error getting download URL:', error));
-  }, [show.PosterURL, storage]);
+  }, [show.PosterURL]);
 
   return (
     <Card style={{ width: '18rem' }}>
