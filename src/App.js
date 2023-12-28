@@ -11,7 +11,8 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 import NavigationBar from './components/NavigationBar';
 import Shows from './pages/Shows';
-
+import UserShowList from './pages/UserShowList';
+import ShowPage from './pages/ShowPage';
 
 
 
@@ -26,6 +27,8 @@ function App() {
           <NavigationBar user={user} />
           <Routes>
             <Route path="/shows" element={<Shows/>} />
+            <Route path="/showlist" element={<UserShowList/>} />
+            <Route path="/showpage/:title" element={<ShowPage/>} />
           </Routes>
         </Router>
       </header>
