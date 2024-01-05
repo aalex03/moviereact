@@ -3,6 +3,7 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 import { ref, getDownloadURL } from "firebase/storage";
 import { storage, auth } from "../firebaseApp";
 import CommentForm from "./CommentForm";
+import CommentList from "./CommentList";
 function ShowCardDetailed({ showDoc }) {
     const currentUser = auth.currentUser;
     const show = showDoc.data();
@@ -41,7 +42,7 @@ function ShowCardDetailed({ showDoc }) {
                     </div>
                 </Col>
             </Row>
-            
+            <CommentList showId={showDoc.id} />
             {currentUser ? <CommentForm showId={showDoc.id} /> : <p>Log in to comment</p>}
         </div>
     );

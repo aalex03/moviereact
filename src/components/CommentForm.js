@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import {db} from "../firebaseApp";
+import {db, auth} from "../firebaseApp";
 const CommentForm = ({ showId }) => {
   const [content, setContent] = useState('');
-
+  const currentUser = auth.currentUser;
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
 
@@ -17,7 +17,7 @@ const CommentForm = ({ showId }) => {
       const commentsRef = collection(db, 'comments');
 
       await addDoc(commentsRef, {
-        userId: 'currentUserId', // Replace with actual user ID
+        userId: currentUser.uid, // Replace with actual user ID
         showId,
         content,
         timestamp: serverTimestamp(),
