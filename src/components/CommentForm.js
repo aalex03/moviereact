@@ -17,10 +17,10 @@ const CommentForm = ({ showId }) => {
       const commentsRef = collection(db, 'comments');
 
       await addDoc(commentsRef, {
-        userId: currentUser.uid, // Replace with actual user ID
-        showId,
-        content,
-        timestamp: serverTimestamp(),
+        UserId: currentUser.uid, // Replace with actual user ID
+        ShowId: showId,
+        Content: content,
+        Timestamp: serverTimestamp(),
       });
 
       // Clear the input field after submission

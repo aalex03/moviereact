@@ -1,55 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import { ListGroup, Button, Alert } from 'react-bootstrap';
-import { collection, query, orderBy, limit, getDocs, where} from 'firebase/firestore';
-import {db} from "../firebaseApp";
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import { collection, query, where, orderBy, limit } from 'firebase/firestore';
+import { db } from '../firebaseApp';
 const CommentList = ({ showId }) => {
-  const [comments, setComments] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  console.log(showId);
   const commentsPerPage = 8;
+  const commentsRef = collection(db, 'comments');
+  const commentsQuery = query(
+    commentsRef,
+    where('ShowId', '==', showId),
+    orderBy('Timestamp', 'desc'),
+    limit(commentsPerPage * currentPage)
+  );
+  
+  const [comments, loading, error] = useCollectionData(commentsQuery, { idField: 'id' });
 
   useEffect(() => {
-    const fetchComments = async () => {
-      const commentsRef = collection(db, 'comments');
-
-      // Query to get the latest comments for the specific show, paginated
-      const commentsQuery = query(
-        commentsRef,
-        where('showId', '==', showId),
-        orderBy('Timestamp'),
-        limit(commentsPerPage * currentPage)
-      );
-
-      const commentsSnapshot = await getDocs(commentsQuery);
-
-      const commentsData = commentsSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      setComments(commentsData);
-    };
-
-    fetchComments();
+    // This effect will be triggered when currentPage or showId changes
+    // You can still use it to fetch additional data or perform other actions if needed
   }, [currentPage, showId]);
 
   const handleLoadMore = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
+  if (loading) {
+    return <p>Loading...</p>; // You can replace this with a loading indicator
+  }
+
+  if (error) {
+    console.error('Error fetching comments:', error);
+    return <p>Error loading comments</p>;
+  }
+
   return (
     <div>
-      {comments.length === 0 ? (
+      <h2>Comments</h2>
+      {comments && comments.length === 0 ? (
         <Alert variant="info">No comments yet. Be the first to leave one!</Alert>
       ) : (
         <ListGroup>
-          {comments.map((comment) => (
-            <ListGroup.Item key={comment.id}>{comment.content}</ListGroup.Item>
-          ))}
+          {comments &&
+            comments.map((comment) => (
+              <ListGroup.Item key={comment.id}>{comment.Content}</ListGroup.Item>
+            ))}
         </ListGroup>
       )}
 
-      {comments.length >= commentsPerPage && (
+      {comments && comments.length >= commentsPerPage && (
         <Button variant="primary" onClick={handleLoadMore}>
           Load More
         </Button>
