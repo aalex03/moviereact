@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { ref, getDownloadURL } from "firebase/storage";
-import { storage } from "../firebaseApp";
+import { storage, auth } from "../firebaseApp";
 import CommentForm from "./CommentForm";
 function ShowCardDetailed({ showDoc }) {
-    console.log(showDoc);
+    const currentUser = auth.currentUser;
     const show = showDoc.data();
     const [imageUrl, setImageUrl] = useState(null);
 
@@ -42,7 +42,7 @@ function ShowCardDetailed({ showDoc }) {
                 </Col>
             </Row>
             
-            <CommentForm showId={showDoc.id} />
+            {currentUser ? <CommentForm showId={showDoc.id} /> : <p>Log in to comment</p>}
         </div>
     );
 }
