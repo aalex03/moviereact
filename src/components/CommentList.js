@@ -3,6 +3,7 @@ import { ListGroup, Button, Alert } from 'react-bootstrap';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { collection, query, where, orderBy, limit } from 'firebase/firestore';
 import { db } from '../firebaseApp';
+import Comment from './Comment';
 const CommentList = ({ showId }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const commentsPerPage = 8;
@@ -42,9 +43,7 @@ const CommentList = ({ showId }) => {
       ) : (
         <ListGroup>
           {comments &&
-            comments.map((comment) => (
-              <ListGroup.Item key={comment.id}>{comment.Content}</ListGroup.Item>
-            ))}
+            comments.map((comment) => <Comment key={comment.id} comment={comment} />)}
         </ListGroup>
       )}
 

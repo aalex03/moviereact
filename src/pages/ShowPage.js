@@ -24,7 +24,7 @@ function ShowPage()
     }
 
     return (
-        <div>
+        <div style={{marginTop: '8rem'}}>
             {showDoc && <ShowCardDetailed showDoc={showDoc} />}
         </div>
     );
