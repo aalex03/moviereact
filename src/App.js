@@ -14,6 +14,7 @@ import UserShowList from './pages/UserShowList';
 import ShowPage from './pages/ShowPage';
 import HomePage from './pages/HomePage';
 import ProfileSetup from './components/ProfileSetup';
+import Admin from './pages/Admin';
 
 const checkProfileExists = async (user) => {
   const profileRef = doc(db, 'profiles', user.uid);
@@ -33,6 +34,19 @@ function App() {
       checkProfileExists(user).then((result) => setProfileExists(result));
     }
   }, [user, profiles]);
+
+
+  const [profile, setProfile] = useState(null);
+  useEffect(() => {
+    if (user && profileExists) {
+      const profileRef = doc(db, 'profiles', user.uid);
+      const profileDoc = getDoc(profileRef).then((doc) => {
+        if (doc.exists()) {
+          setProfile(doc.data());
+        }
+      });
+    }
+  }, [user, profileExists]);
 
   if (user && profileExists === null) {
     return <div className='App'>
@@ -58,6 +72,7 @@ function App() {
             <Route path="/shows" element={<Shows/>} />
             <Route path="/showlist" element={<UserShowList/>} />
             <Route path="/showpage/:title" element={<ShowPage/>} />
+            {profile?.isAdmin && <Route path="/admin" element={<Admin/>} />}
           </Routes>
         </Router>
       </header>
