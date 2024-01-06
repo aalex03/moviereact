@@ -18,7 +18,6 @@ const CommentList = ({ showId }) => {
   );
 
   const [comments] = useCollectionData(commentsQuery, { idField: 'id' });
-  console.log(comments);
   return (
     <div>
       <ListGroup>
