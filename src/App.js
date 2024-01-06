@@ -66,7 +66,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Router>
-        <NavigationBar user={user} />
+        <NavigationBar userProfile={profile} />
           <Routes>
             <Route path="/" element={<HomePage/>} />
             <Route path="/shows" element={<Shows/>} />

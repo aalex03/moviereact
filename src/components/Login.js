@@ -1,10 +1,9 @@
 import React from 'react';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { Button } from 'react-bootstrap';
-
+import {auth} from '../firebaseApp';
 function Login() {
   const signInWithGoogle = async () => {
-    const auth = getAuth();
     const provider = new GoogleAuthProvider();
 
     try {
