@@ -1,31 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { ListGroup, Image } from 'react-bootstrap';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import {auth} from "../firebaseApp";
-import {getAuth, getUser} from "firebase/auth";
+import { doc, getDoc } from 'firebase/firestore';
+import { auth, db } from "../firebaseApp";
+
 
 const Comment = ({ comment }) => {
-    const user = 'bozo';
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState({
+    Username: '',
+    PhotoUrl: '',
+  });
   useEffect(() => {
-    // Fetch additional user data from Firebase Auth
-    if (user) {
-      const { displayName, photoURL } = user;
-      setUserData({ displayName, photoURL });
-    }
-  }, [user]);
+    const getUserData = async () => {
+      const userRef = doc(db, 'profiles', comment.UserId);
+      const user = await (await getDoc(userRef)).data();
 
+      setUserData({
+        Username: user.Username,
+        PhotoUrl: user.PhotoUrl,
+      });
+    };
+    getUserData();
+  }, [comment.UserId]);
   return (
     <ListGroup.Item>
       <div>
         {userData && (
           <div>
-            <Image src={userData.photoURL} alt="User Photo" roundedCircle width={30} height={30} />
-            <span>{userData.displayName}</span>
+            <Image src={userData.PhotoUrl} alt="User Photo" roundedCircle width={30} height={30} />
+            <span>{userData.Username}</span>
           </div>
         )}
-        <p>{comment.Content}</p>
-        <small className='text-muted'>{comment.Timestamp.toDate().toLocaleDateString()}</small>
+        {comment && (
+          <div>
+            <p>{comment.Content}</p>
+            <small className='text-muted'>{comment.Timestamp?.toDate().toLocaleDateString()}</small>
+          </div>
+        )}
+
       </div>
     </ListGroup.Item>
   );

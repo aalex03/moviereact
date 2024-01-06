@@ -14,7 +14,7 @@ function ShowCardDetailed({ showDoc }) {
         const imageRef = ref(storage, show.PosterURL);
 
         getDownloadURL(imageRef)
-            .then(url => { console.log(url); setImageUrl(url) })
+            .then(url => {setImageUrl(url) })
             .catch(error => console.error('Error getting download URL:', error));
     }, [show.PosterURL]);
 

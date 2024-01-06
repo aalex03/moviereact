@@ -14,7 +14,8 @@ const ProfileSetup = () => {
       try {
         // Set profile data in the "profiles" collection
         await setDoc(profileRef, {
-          username: username,
+          Username: username,
+          PhotoUrl: user.photoURL,
         });
 
         // Assume the profile setup is successful
