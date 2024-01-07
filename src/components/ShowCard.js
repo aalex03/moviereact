@@ -19,7 +19,7 @@ function ShowCard({ show }) {
   }, [show.PosterURL]);
 
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card style={{ width: '18rem', height: '600px'}}>
 
       <Card.Body>
         <Link to={`/showpage/${show.Title}`}>
