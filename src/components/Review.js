@@ -3,6 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db, auth } from '../firebaseApp';
 import ReviewForm from './ReviewForm';
+import ReviewCard from './ReviewCard';
 
 const Review = ({ showId }) => {
   const [currentUser] = useAuthState(auth);
@@ -37,9 +38,7 @@ const Review = ({ showId }) => {
       {userReview ? (
         // User has a review, display the review content
         <div>
-          <h3>Your Review</h3>
-          <p>{userReview.Content}</p>
-          <p>Rating: {userReview.Rating}</p>
+          <ReviewCard review={userReview}/>
         </div>
       ) : (
         // User does not have a review, render the ReviewForm
