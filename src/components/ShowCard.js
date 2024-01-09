@@ -17,19 +17,20 @@ function ShowCard({ show }) {
   }, [show.PosterURL, storage]);
 
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card style={{minWidth:'18rem', maxWidth: '18rem', backgroundColor: '#1d2026',minHeight : '27vw', maxHeight: '27vw' }}>
       
       <Card.Body>
-        <Card.Title>{show.Title}</Card.Title>
-        <Card.Img variant="top" style={{maxWidth: "100%"}} src={imageUrl} />
+        <Card.Title className='text-light'>{show.Title}</Card.Title>
+        <Card.Img variant="top" style={{maxWidth: "100%", height: '15vw' }} src={imageUrl} />
+
         
-        <Card.Text style={{ fontSize: 'small', overflowY: 'auto', maxHeight: '100px' }}>
+        <Card.Text className='mt-2' style={{ fontSize: 'small', overflowY: 'auto', maxHeight: '100px', color: 'white' }}>
           {show.Synopsis}
         </Card.Text>
       </Card.Body>
       <Card.Footer className='d-flex' style={{fontSize: "0.75rem", padding: "10px"}}>
-        <small className="text-muted">{show.Genre}</small>
-        <small className="text-muted ms-auto">{show.ReleaseDate.toDate().toLocaleDateString()}</small>
+        <small className= 'text-light'>{show.Genre}</small>
+        <small className="text-light ms-auto">{show.ReleaseDate.toDate().toLocaleDateString()}</small>
       </Card.Footer>
     </Card>
   );

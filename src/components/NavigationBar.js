@@ -6,7 +6,7 @@ import Logout from './Logout';
 
 function NavigationBar({ user }) {
   return (
-    <Navbar bg="dark" expand="lg" fixed='top' style={{ padding: '10px' }}>
+    <Navbar  expand="lg" fixed='top' style={{ padding: '10px', backgroundColor: '#1d2026' }}>
       <Navbar.Brand href="#home">MovieReact</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
@@ -21,7 +21,7 @@ function NavigationBar({ user }) {
         </Nav>
         <Nav className='ms-auto'>
           <Form className='ms-2 me-2'>
-            <FormControl inline type="text" placeholder="Search" className="m-2" />
+            <FormControl inline type="text" placeholder="Search" className="m-2" style={{backgroundColor: '#282c34',color:'#6a748b', '::placeholder': { color: '#6a748b' } }} />
           </Form>
           <div className='ms-2 me-2'>
             {user ? (
