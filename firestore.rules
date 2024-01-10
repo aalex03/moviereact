@@ -2,9 +2,16 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allow anyone to read or write to any document
+    // Allow read and write access to all collections except 'mail'
     match /{document=**} {
       allow read, write: if true;
+    }
+
+    // Allow read and write access to 'mail' collection only for admins
+    match /mail/{document=**} {
+      allow read, write: if request.auth != null && get(/databases/$(database)/documents/profiles/$(request.auth.uid)).data.isAdmin == true;
+      allow create: if false;  // Disallow client-side creation
+      allow update: if false;  // Disallow client-side updates
     }
   }
 }

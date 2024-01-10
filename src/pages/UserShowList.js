@@ -7,40 +7,33 @@ import ShowCard from '../components/ShowCard';
 
 const UserShowList = () => {
   const [currentUser] = useAuthState(auth);
-  const [userReviews, setUserReviews] = useState([]);
+  const [followedShows, setFollowedShows] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchUserReviews = async () => {
+    const fetchFollowedShows = async () => {
       if (currentUser) {
-        const userReviewsQuery = query(
-          collection(db, 'reviews'),
+        // Query follows collection for shows followed by the current user
+        const followsQuery = query(
+          collection(db, 'follows'),
           where('UserId', '==', currentUser.uid)
         );
 
-        const userReviewsSnapshot = await getDocs(userReviewsQuery);
-        const reviews = userReviewsSnapshot.docs.map((doc) => doc.data());
-
-        // Fetch associated shows for each review
-        const showsPromises = reviews.map(async (review) => {
-          const showDoc = await getDoc(doc(db, 'shows', review.ShowId));
+        const followsSnapshot = await getDocs(followsQuery);
+        const followedShowsPromises = followsSnapshot.docs.map(async (followDoc) => {
+          const showId = followDoc.data().ShowId;
+          const showDoc = await getDoc(doc(db, 'shows', showId));
           return showDoc.data();
         });
 
-        const shows = await Promise.all(showsPromises);
+        const followedShowsData = await Promise.all(followedShowsPromises);
 
-        // Combine reviews and shows
-        const userReviewsWithShows = reviews.map((review, index) => ({
-          ...review,
-          show: shows[index],
-        }));
-
-        setUserReviews(userReviewsWithShows);
+        setFollowedShows(followedShowsData);
         setLoading(false);
       }
     };
 
-    fetchUserReviews();
+    fetchFollowedShows();
   }, [currentUser]);
 
   if (loading) {
@@ -49,16 +42,16 @@ const UserShowList = () => {
 
   return (
     <div>
-      <h2>Your Show List</h2>
-      {userReviews.length === 0 ? (
-        <p>No reviews yet. Start exploring and leave some reviews!</p>
+      <h2>Your Followed Shows</h2>
+      {followedShows.length === 0 ? (
+        <p>No shows followed yet. Start following some shows!</p>
       ) : (
         <div>
-            <Stack direction='horizontal' gap={3}>
-          {userReviews.map((review) => (
-            <ShowCard key={review.ShowId} show={review.show} />
-          ))}
-            </Stack>
+          <Stack direction='horizontal' gap={3}>
+            {followedShows.map((show) => (
+              <ShowCard key={show.id} show={show} />
+            ))}
+          </Stack>
         </div>
       )}
     </div>
