@@ -2,33 +2,9 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Shows collection rules
-    match /shows/{document} {
-      allow read: if true; // Allow read access to everyone
-      allow write: if request.auth != null && get(/databases/$(database)/documents/profiles/$(request.auth.uid)).data.isAdmin == true;
+    // Allow anyone to read or write to any document
+    match /{document=**} {
+      allow read, write: if true;
     }
-
-    // Comments collection rules
-		match /comments/{commentId} {
-  		allow read: if true; // Allow read access to everyone
-  		allow create: if request.auth != null; // Allow creating comments by authenticated users
-  		allow update, delete: if request.auth != null && request.auth.uid == resource.data.userId; // Allow updating and deleting only by the comment owner
-		}	
-
-
-    // Reviews collection rules
-    match /reviews/{reviewId} {
-      allow read: if true; // Allow read access to everyone
-      allow create: if request.auth != null; // Allow creating reviews by authenticated users
-      allow update, delete: if request.auth != null && request.auth.uid == resource.data.userId; // Allow updating and deleting only by the review owner
-    }
-
-    // Profiles collection rules
-    match /profiles/{userId} {
-      allow read: if true; // Allow read access to everyone, including anonymous users
-      allow create, update: if request.auth != null && (request.auth.uid == userId || get(/databases/$(database)/documents/profiles/$(request.auth.uid)).data.isAdmin == true);
-      allow delete: if request.auth != null && get(/databases/$(database)/documents/profiles/$(request.auth.uid)).data.isAdmin == true;
-    }
-
   }
 }
