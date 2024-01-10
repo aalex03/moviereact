@@ -69,20 +69,17 @@ function ShowCardDetailed({ showDoc }) {
         <div>
             <Row>
                 <Col className="w-25">
-                    <Card style={{ width: '18rem', height: "560px" }}>
-                        <Card.Title>{show.Title}</Card.Title>
+                    <Card style={{ width: '18rem', height: "auto", backgroundColor: '#1d2026' }}>
+                        <Card.Title style={{color: "white"}}>{show.Title}</Card.Title>
                         <Card.Img variant="top" src={imageUrl} />
-                        <Card.Body>
-                            <Card.Text style={{ fontSize: 'small', overflowY: 'auto', maxHeight: '100px', textAlign: 'left' }}>
+                        <Card.Body >
+                            <Card.Text style={{ fontSize: 'small', overflowY: 'auto', maxHeight: '100px', textAlign: 'left', color: "white" }}>
                                 Rating: {show.Rating}⭐
                                 <br />
                                 Status: {show.Status}
                             </Card.Text>
                             <Button variant="info" onClick={handleFollow}>{followStatus ? 'Unfollow' : 'Follow'}</Button>
                         </Card.Body>
-                        <Card.Footer>
-
-                        </Card.Footer>
                     </Card>
                 </Col>
                 <Col className="w-75 justify-content-center text-center">

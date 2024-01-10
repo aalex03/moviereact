@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { collection, addDoc, doc, setDoc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../firebaseApp';
+import { Rating } from 'react-simple-star-rating'
 
 const ReviewForm = ({ showId }) => {
   const [rating, setRating] = useState('');
@@ -52,6 +53,12 @@ const ReviewForm = ({ showId }) => {
     }
   };
 
+  const handleRating = (rate) => {
+    setRating(rate)
+
+    // other logic
+  }
+
   return (
     <div>
       <h3>Leave a Review</h3>
@@ -61,13 +68,8 @@ const ReviewForm = ({ showId }) => {
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="rating">
             <Form.Label>Rating</Form.Label>
-            <Form.Control
-              type="number"
-              min="1"
-              max="5"
-              value={rating}
-              onChange={(e) => setRating(e.target.value)}
-              required
+            <Rating
+            onClick={handleRating}
             />
           </Form.Group>
 

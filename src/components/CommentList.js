@@ -17,24 +17,34 @@ const CommentList = ({ showId }) => {
     limit(commentsPerPage * currentPage)
   );
 
-  const [comments] = useCollectionData(commentsQuery, { idField: 'id' });
+  const [comments] = useCollectionData(commentsQuery, { idField: 'id' }) ?? [];
+
+  if (!!comments && comments.length === 0) {
+    return (
+      <div>
+        No comments added.
+      </div>
+  
+    )
+  }
+
   return (
     <div>
       <ListGroup>
-        {comments && comments.length > 0 ? (
-          comments.map((comment) => <Comment key={comment.id} comment={comment} />)
-        ) : (
-          <Alert variant="info">No comments yet!</Alert>
-        )}
+        {
+          !!comments && (
+            comments.map((comment) => <Comment key={comment.id} comment={comment} />)
+          )
+        }
+        <div className="d-flex justify-content-center mt-3">
+              <Button
+                variant="outline-primary"
+                onClick={() => setCurrentPage((prev) => prev + 1)}
+              >
+                Load More
+              </Button>
+            </div>
       </ListGroup>
-      <div className="d-flex justify-content-center mt-3">
-        <Button
-          variant="outline-primary"
-          onClick={() => setCurrentPage((prev) => prev + 1)}
-        >
-          Load More
-        </Button>
-      </div>
     </div>
   );
   

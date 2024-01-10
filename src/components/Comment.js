@@ -22,18 +22,21 @@ const Comment = ({ comment }) => {
     getUserData();
   }, [comment.UserId]);
   return (
-    <ListGroup.Item>
+    <ListGroup.Item style={{backgroundColor:'#1d2026'}}>
       <div>
         {userData && (
           <div>
-            <Image src={userData.PhotoUrl} alt="User Photo" roundedCircle width={30} height={30} />
-            <span>{userData.Username}</span>
+            <Image src={userData.PhotoUrl} alt="User Photo" roundedCircle width={30} height={30} style={{marginRight: '10px'}} />
+            <span style={{color:'white'}}>{userData.Username}</span>
           </div>
         )}
         {comment && (
           <div>
-            <p>{comment.Content}</p>
-            <small className='text-muted'>{comment.Timestamp?.toDate().toLocaleDateString()}</small>
+            <p style={{fontSize: '24px', color:"white"}}>
+              {comment.Content}
+              <br />
+              <small style={{color:'white'}}>{comment.Timestamp?.toDate().toLocaleDateString()}</small>
+            </p>
           </div>
         )}
 

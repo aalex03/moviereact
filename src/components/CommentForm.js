@@ -32,13 +32,15 @@ const CommentForm = ({ showId }) => {
 
   return (
     <Form onSubmit={handleCommentSubmit}>
-      <Form.Group controlId="formComment">
+      <Form.Group  controlId="formComment">
         <Form.Label>Your Comment</Form.Label>
         <Form.Control
+        className="red-placeholder"
+        style={{ backgroundColor: '#1d2026', color: 'white', resize : 'none',   }}
           as="textarea"
           rows={3}
           placeholder="Enter your comment"
-          value={content}
+          value={content}g
           onChange={(e) => setContent(e.target.value)}
         />
       </Form.Group>

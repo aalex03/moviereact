@@ -40,3 +40,7 @@
 .Navbar{
   background-color:#171717;
 } 
+
+.red-placeholder::placeholder {
+  color: white!important;
+}
