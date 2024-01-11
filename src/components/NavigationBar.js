@@ -6,27 +6,28 @@ import Logout from './Logout';
 
 function NavigationBar({ userProfile }) {
   return (
-    <Navbar bg="dark" expand="lg" fixed='top' style={{ padding: '10px', backgroundColor: '#1d2026' }}>
-      <Navbar.Brand href="#home">MovieReact</Navbar.Brand>
+    <Navbar bg="dark" expand="lg" fixed='top' style={{ padding: '10px', backgroundColor: '#1d2026', }}>
+      <Navbar.Brand style={{color:'white'}} href="#home">MovieReact</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className='me-auto'>
-          <NavLink to={'/shows'} className='nav-link'>Shows</NavLink>
+          <NavLink style={{color:'white'}} to={'/shows'} className='nav-link'>Shows</NavLink>
           {userProfile && (
-            <NavLink to={'/showlist'} className='nav-link'>My List</NavLink>
+            <NavLink style={{color:'white'}} to={'/showlist'} className='nav-link'>My List</NavLink>
           )}
           {userProfile && userProfile.isAdmin && (
-            <NavLink to={'/admin'} className='nav-link'>Admin</NavLink>
+            <NavLink style={{color:'white'}} to={'/admin'} className='nav-link'>Admin</NavLink>
           )}
         </Nav>
         <Nav className='ms-auto'>
           <Form className='ms-2 me-2'>
-            <FormControl
+            <FormControl 
+          
+              className="red-placeholder"
               inline
               type="text"
               placeholder="Search"
-              className="m-2"
-              style={{ backgroundColor: '#282c34', color: '#6a748b', '::placeholder': { color: '#6a748b' } }}
+              style={{ backgroundColor: '#282c34', color: 'white', }}
             />
           </Form>
           <div className='ms-2 me-2'>
