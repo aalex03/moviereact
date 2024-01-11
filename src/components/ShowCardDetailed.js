@@ -74,7 +74,7 @@ function ShowCardDetailed({ showDoc }) {
                         <Card.Img variant="top" src={imageUrl} />
                         <Card.Body >
                             <Card.Text style={{ fontSize: 'small', overflowY: 'auto', maxHeight: '100px', textAlign: 'left', color: "white" }}>
-                                Rating: {show.Rating}⭐
+                                Rating: {show.Score}⭐
                                 <br />
                                 Status: {show.Status}
                             </Card.Text>
