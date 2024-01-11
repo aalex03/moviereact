@@ -73,12 +73,15 @@ const ReviewForm = ({ showId }) => {
             />
           </Form.Group>
 
-          <Form.Group controlId="content">
+          <Form.Group  controlId="content">
             <Form.Label>Review Content</Form.Label>
-            <Form.Control
+            <Form.Control 
+            className="red-placeholder"
+            style={{backgroundColor: '#1d2026', color:'white'}}
               as="textarea"
               rows={3}
               value={content}
+              placeholder="Enter your review"
               onChange={(e) => setContent(e.target.value)}
               required
             />
